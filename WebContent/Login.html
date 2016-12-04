@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- 登录 -->
+<html>
+<head>
+<title>My JSP 'Login.jsp' starting page</title>
+<!-- 在页面插入外部样式表 -->
+<link rel="stylesheet" type="text/css" href="CSS/User_Login.css">
+<script src="login.js"></script>
+</head>
+<body id="userlogin_body" onload="WindowLoad();">
+	<form id="Login" method="post">
+		<!-- 设置表格宽度与浏览器等宽，单元格与单元格间隔为0，表格内数据与表格间隔为0 -->
+		<table height="100%" cellSpacing="0" cellPadding="0" width="100%"
+			border="0">
+			<tr>
+				<td vAlign="middle" align="center">
+					<DIV id="user_login">
+						<DL>
+							<DD id="user_top">
+								<UL>
+									<LI class="user_top_l"></LI>
+									<LI class="user_top_c"></LI>
+									<LI class="user_top_r"></LI>
+								</UL>
+								<UL>
+									<LI class="user_main_l"></LI>
+									<LI class="user_main_c">
+										<DIV class="user_main_box">
+											<UL>
+												<!-- 用户名输入框，输入框前面有一副小图，最大长度为20，类选择器user_main_input，作为输入框的样式 -->
+												<LI><b>用户名:</b></LI>
+												<LI class="user_main_input"
+													style="WIDTH: 166px; HEIGHT: 24px"><INPUT
+													class="TxtUserNameCssClass" onkeydown="EnterToTab();"
+													id="username" maxLength="20" name="username"
+													style="WIDTH: 165px; HEIGHT: 24px" size="22"></LI>
+												<li><br> <br></li>
+											</UL>
+											<UL>
+												<!-- 密码输入框，输入框前面有一副小图，最大长度为20，类选择器user_main_input，作为输入框的样式 -->
+												<LI><b>密&nbsp;&nbsp;&nbsp;&nbsp;码:</b></LI>
+												<LI class="user_main_input"
+													style="WIDTH: 166px; HEIGHT: 24px"><INPUT
+													class="TxtPasswordCssClass" id="password" type="password"
+													name="password" style="WIDTH: 165px; HEIGHT: 24px"
+													size="22"></LI>
+											</UL>
+											<UL>
+												<LI class="user_main_input"
+													style="WIDTH: 238px; HEIGHT: 10px"><br /></LI>
+											</UL>
+											<ul>
+												<!-- 注册链接，类选择器user_main_input，作为注册链接的样式 -->
+												<LI class="user_main_input"
+													style="WIDTH: 238px; HEIGHT: 10px"><b>没注册？请点击</b><a
+													href="UserRegister.html">注册</a></LI>
+											</ul>
+										</DIV>
+									</LI>
+									<!--点击登录按钮，事件CheckLoginInfo()  -->
+									<LI class="user_main_r"><INPUT class="IbtnEnterCssClass"
+										id="btnLogin" onclick="return CheckLoginInfo();" type="image"
+										src="./images/login/user_botton.gif" name="btnLogin">
+									</LI>
+								</UL>
+							</DD>
+						</DL>
+					</DIV>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

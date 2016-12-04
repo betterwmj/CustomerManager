@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>用户列表</title>
+  <link rel="stylesheet" type="text/css" href="CSS/index.css">
+</head>
+<script type="text/javascript"> 
+   //删除用户函数
+    function del(obj){
+      if(confirm("确定要删除吗？")){
+	   var tr=obj.parentNode.parentNode;
+	   tr.parentNode.removeChild(tr);
+	   var str=obj.parentNode.parentNode.firstChild.firstChild.nodeValue;
+	   localStorage.removeItem(str);
+	   alert("删除成功");
+      }
+      else{
+    	  alert("取消");
+      }
+   }  
+    //查询用户信息函数
+    function search(obj){
+	    var str=obj.parentNode.parentNode.firstChild.firstChild.nodeValue;
+	    var user=localStorage.getItem(str);
+	    var data=JSON.parse(user);
+	    var name=data.name;
+		var password=data.password;
+		var sexs=data.sex;
+		var birth=data.births;
+		html="<table  border='0' cellspacing='0' cellpadding='0' align='center'><th>用户名</th><th>密码</th><th>性别</th><th>出生日期</th>";
+		html += "<tr align='center'>" + 
+	        "<td>" + name+ "</td>" 
+	        +"<td>" + password+ "</td>" 
+	        +"<td>" + sexs+ "</td>" 
+	        +"<td>" + birth+ "</td>";
+	    html += "</table>";
+	    html+="<a href='#' onclick='divClose()'> 关闭</a>";
+		document.getElementById('light').innerHTML=html;
+		document.getElementById('light').style.display='block';
+		document.getElementById('fade').style.display='block';
+		
+	 }  
+    //关闭弹出的div
+    function divClose()
+    {
+    	document.getElementById('light').style.display='none';
+    	document.getElementById('fade').style.display='none';
+    }
+    //将修改的信息存储到localStorage
+    function confirmUpdate()
+    {
+    	var data=new Object();
+    	var reg = /^[\w.]{4,20}$/;
+    	if(!password.value.match(reg))
+    	{
+    		alert("密码不规范，请重新输入!");
+    		return false;
+    	}else{
+		data.name=userRealName.value;
+		data.password=password.value
+		data.sex=sexs.value;
+		data.births=birth.value;
+		localStorage.setItem(data.name,JSON.stringify(data)); 
+		alert("修改成功");
+    	}
+    }
+    //显示要修改的用户信息
+    function update(obj){
+	    var str=obj.parentNode.parentNode.firstChild.firstChild.nodeValue;
+	    var user=localStorage.getItem(str);
+	    var data=JSON.parse(user);
+	    var name=data.name;
+		var password=data.password;
+		var sexs=data.sex;
+		var birth=data.births;
+		html="<table  border='0'  class='admintable' cellspacing='0' cellpadding='0' align='center'><th>用户名(不能修改)</th><th>密码(由数字、字母组成，4-20位)</th><th>性别</th><th>出生日期</th>";
+		html += "<tr align='center'>" + 
+	        "<td><input type='text' id='userRealName' value='"+name+"' readonly /></td>" 
+	        +"<td><input type='text' id='password' value='"+password+"'/></td>" 
+	        +"<td><input type='text' id='sexs' value='"+sexs+"'/></td>" 
+	        +"<td><input type='text' id='birth' value='"+birth+"'/></td>" ;
+	    html += "</table>";
+	    html+="<a href='#' onclick='confirmUpdate()'>确认</a>"+"   ";
+	    html+="<a href='#' onclick='divClose()'>关闭</a>";
+		document.getElementById('light').innerHTML=html;
+		document.getElementById('light').style.display='block';
+		document.getElementById('fade').style.display='block';
+    }
+    //进行分页显示
+    function goPage(pno,psize){
+        var table = document.getElementById("tab");
+        var num = table.rows.length;//表格所有行数
+        var totalPage = 0;//总页数
+        var pageSize = psize;//每页显示行数
+        //总共分几页 
+        if(num/pageSize > parseInt(num/pageSize)){   
+                totalPage=parseInt(num/pageSize)+1;   
+           }else{   
+               totalPage=parseInt(num/pageSize);   
+           }   
+        var currentPage = pno;//当前页数
+        var startRow = (currentPage - 1) * pageSize+1;//开始显示的行 
+        var endRow = currentPage * pageSize;//结束显示的行 
+        endRow = (endRow > num)? num : endRow;   
+        //遍历数据实现分页
+        for(var i=1;i<(num+1);i++){    
+            var row = table.rows[i-1];
+            if(i>=startRow && i<=endRow){
+                row.style.display = "block";    
+            }else{
+                row.style.display = "none";
+            }
+        }
+        var showStr = "共"+num+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
+        if(currentPage>1){
+        	showStr += "<a href=\"#\" onClick=\"goPage("+(1)+","+psize+")\">首页</a>";
+        	showStr += "<a href=\"#\" onClick=\"goPage("+(currentPage-1)+","+psize+")\"><上一页</a>"
+        }else{
+        	showStr += "首页";
+        	showStr += "<上一页";    
+        }
+
+        if(currentPage<totalPage){
+        	showStr += "<a href=\"#\" onClick=\"goPage("+(currentPage+1)+","+psize+")\">下一页></a>";
+        	showStr += "<a href=\"#\" onClick=\"goPage("+(totalPage)+","+psize+")\">尾页</a>";
+        }else{
+        	showStr += "下一页>";
+        	showStr += "尾页";    
+        }
+
+        document.getElementById("show").innerHTML = showStr;
+        
+    }
+    document.write("<div align='center'><img src='images/10.jpg' no-repeat width='100%' height='100'></div>");
+    document.write("<div align='center' style='color:gray;font-size:30px' ><font color='red'>客户管理系统</font></div>"); 	
+    var html = "";
+    html += "<table id='tab' width='40%' border='0' bgcolor='pink' cellspacing='0' cellpadding='0' align='center'><th>用户名</th><th>修改</th><th>删除</th><th>查看</th>";
+    //循环取出localStorage中的所有用户信息
+    for(var i=0;i<localStorage.length;i++){  
+        var str=localStorage.getItem(localStorage.key(i));
+        var data= JSON.parse(str);
+        var names= data.name;
+        html += "<tr>" + 
+        "<td>" + data.name+ "</td>" 
+        +"<td><span style='cursor:pointer' onclick='update(this)'>修改</span></td>"
+        +"<td><span style='cursor:pointer' onclick='del(this)'>删除</span></td>"
+        +"<td><span style='cursor:pointer' onclick='search(this)'>查看</span></td></tr>";  
+        
+    }  
+    html += "</table>";
+    html+= "<p align='right'  id='show' name='show'></p>";
+    document.write(html);
+    document.write("<p align='right'>您好！<font color=red>"+data.name+"</font><a href='Login.html'>退出</a></p>" );
+</script>
+<body onLoad="goPage(1,10);">
+	<div id="light" class="white_content"></div>
+	<div id="fade" class="black_overlay"></div>   
+</body>
+</html>

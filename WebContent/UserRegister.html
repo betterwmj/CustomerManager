@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>新用户注册</title>
+<link rel="stylesheet" type="text/css" href="CSS/index.css">
+<script src="register.js"></script>
+</head>
+<body>
+	<h1 align="center" id="title">
+		用户注册 <br>
+	</h1>
+	<!-- 表单，用户填写表单 -->
+	<form name="form1" method="post">
+		<!-- 设置表格宽度与浏览器等宽，单元格与单元格间隔为1，表格内数据与表格间隔为0 -->
+		<table width="100%" cellspacing="1" cellpading="0">
+			<tr height="30">
+				<td>
+					<!--用户名行高30，内容居右 -->
+					<div align="right">用户名</div>
+				</td>
+				<td>
+					<div align="left">
+						<input type="text" id="userRealName" size="20" value=""> <font
+							color="red">*</font>
+					</div>
+				</td>
+			</tr>
+
+			<tr height="30">
+				<td>
+					<!--用户密码，行高30，内容居右 -->
+					<div align="right">用户密码</div>
+				</td>
+				<td>
+					<div align="left">
+						<input type="password" id="password" size="20" value=""> <font
+							color="red">*密码由字母，数字,长度4-20位组成</font>
+					</div>
+				</td>
+			</tr>
+			<tr height="30">
+				<td>
+					<!--验证密码，行高30，内容居右 -->
+					<div align="right">验证密码</div>
+				</td>
+				<td>
+					<div align="left">
+						<input type="password" id="password2" size="20" value="">
+						<font color="red">*</font>
+					</div>
+				</td>
+			</tr>
+			<tr height="30">
+				<!--性别，行高30，内容居左，输入框居中,必填项-->
+				<td>
+					<div align="right">性别</div>
+				</td>
+				<td>
+					<div align="left">
+						<input type="radio" name="sex" value="男" />男 <input type="radio"
+							name="sex" value="女" />女
+					</div>
+				</td>
+			</tr>
+			<tr height="30">
+				<td>
+					<!--出生日期，行高30，内容居右 -->
+					<div align="right">出生日期</div>
+				</td>
+				<td>
+					<div align="left">
+						<select onchange="setDays()">
+						</select> <span>年</span> 
+						<select onchange="setDays()">
+						</select> <span>月</span> 
+						<select id="day" >
+						</select> <span>日</span>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<!-- 注册和重置按钮，占据4列，内容居中-->
+				<td align="center" colspan="4">
+					<div align="center">
+						<!-- 注册按钮点击事件checkUserInfo() -->
+						<button id="btn">注册</button>
+						<input type="reset" name="Reset" value="重置"> <a
+							href="Login.html">返回登录界面</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<!-- 提示 -->
+		<p>&nbsp;</p>
+		<p align="center">
+			<font face="隶书" size="4">:注意：注册前请认真检查输入是否正确 </font><font face="隶书">。</font>
+		</p>
+	</form>
+</body>
+</html>
